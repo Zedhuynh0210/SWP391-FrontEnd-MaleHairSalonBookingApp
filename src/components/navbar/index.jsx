@@ -64,7 +64,7 @@ function Navbar() {
                 <Link to="/member">Home</Link>
                 <Link to="/services">Services</Link>
                 <Link to="/stylists">Stylists</Link>
-                <Link to="/voucher">Voucher</Link>
+                <Link to="/products">Products</Link>
                 <Link to="/contact">Contact</Link>
             </div>
 

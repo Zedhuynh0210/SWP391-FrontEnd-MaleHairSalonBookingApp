@@ -3,8 +3,8 @@ import HomePage from "../page/home";
 import LoginPage from "../page/login";
 import Register from "../page/register";
 import Member from "../page/member";
-import Admin from "../page/admin";
-// import Test from "../component/Test";
+import DashBoard from "../page/dashboard";
+
 
 
 export const router = createBrowserRouter([
@@ -25,7 +25,8 @@ export const router = createBrowserRouter([
     element: <Member/>
   },
   {
-    path:"admin",
-    element: <Admin/>
+    path:"dashboard",
+    element: <DashBoard/>
   }
+
 ]);

@@ -8,10 +8,13 @@ function Footer() {
       <div className="container">
         <div className="row">
           <div className="column">
-            <h3>Information</h3>
-            <p>
-            Hair Hamony is typically professional and stylish, offering a comfortable environment where clients can relax and enhance their appearance.
-            </p>
+            <h3>Menu</h3>
+            <ul>
+              <li><a href="/services">Services</a></li>
+              <li><a href="/stylists">Stylists</a></li>
+              <li><a href="/products">Products</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
           </div>
           <div className="column">
             <h3>Our Services</h3>
