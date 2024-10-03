@@ -1,0 +1,112 @@
+/* src/page/admin/index.css */
+
+.admin-dashboard {
+    display: flex;
+    flex-direction: row; 
+    height: 100vh;
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #333; 
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; 
+    overflow-y: auto;
+  }
+  
+  .logo-container {
+    text-align: center;
+    margin-bottom: 20px; 
+  }
+  
+  .sidebar-logo {
+    width: 150px; 
+    height: auto;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    padding: 15px 0; 
+    cursor: pointer;
+    color: white; 
+  }
+  
+  .sidebar ul li:hover {
+    background-color: #555; 
+    padding-left: 10px; 
+    transition: padding-left 0.3s ease;
+  }
+  
+  .main-content {
+    margin-left: 220px; 
+    padding: 20px;
+    flex: 1;
+  }
+  
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .stat-card {
+    width: calc(33.33% - 20px);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .stat-card h3 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .stat-card p {
+    margin: 10px 0;
+  }
+  
+  .stat-card button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .stat-card.blue {
+    background-color: blue;
+  }
+  
+  .stat-card.orange {
+    background-color: orange;
+  }
+  
+  .stat-card.red {
+    background-color: red;
+  }
+  
+  .stat-card.green {
+    background-color: green;
+  }
+  
+  .stat-card.darkblue {
+    background-color: darkblue;
+  }
+  
+  .stat-card.pink {
+    background-color: pink;
+  }
+  
+  .stat-card.lightgreen {
+    background-color: lightgreen;
+  }
+  
