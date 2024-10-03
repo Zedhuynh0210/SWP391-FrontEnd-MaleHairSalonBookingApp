@@ -8,6 +8,7 @@ function Member() {
             <Navbar />
             <Home /> 
             <Footer />
+            <h1>Demo</h1>
         </div>
     );
 }
