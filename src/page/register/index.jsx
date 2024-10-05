@@ -1,15 +1,47 @@
 import { Button, Form, Input, message, Spin } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../config/axios'; 
 import Header from '../../components/header';
 import './index.css';
 import { Row, Col } from 'antd'; // Thêm import Row và Col
 import { useState } from 'react';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { ggProvider } from '../../config/firebase';
+import { FcGoogle } from "react-icons/fc";
 
-const Register = () => {
+function Register() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // Trạng thái loading
+
+  const handleRegisterGoogle = () => {
+    const auth = getAuth();
+    signInWithPopup(auth, ggProvider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    console.log(token);
+    // The signed-in user info.
+    const user = result.user;
+    console.log(user);
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    console.log(errorCode);
+    const errorMessage = error.message;
+    console.log(errorMessage);
+    // The email of the user's account used.
+    const email = error.customData.email;
+    console.log(email);
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    console.log(credential);
+    // ...
+  });
+  }
 
   const onFinish = async (values) => {
     setLoading(true); // Hiển thị spin loading khi bắt đầu đăng ký
@@ -130,6 +162,31 @@ const Register = () => {
                 </Form.Item>
               </Col>
             </Row>
+            
+            <Link to="/login">Already have account? Login account</Link>
+
+            <Button
+             onClick={handleRegisterGoogle}
+             variant="outlined"
+             startIcon={<FcGoogle style={{ fontSize: "24px" }} />}
+             style={{
+                width: "230px",
+                textTransform: "none",
+                borderColor: "#4285F4",
+                color: "#4285F4",
+                padding: "6px 12px",
+                fontSize: "16px",
+                fontWeight: "bold",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "20px",
+                marginTop: "10px",
+      }}
+             >
+             <FcGoogle style={{ fontSize: "24px" }} />
+             Register with Google
+             </Button>
 
             <Form.Item style={{ textAlign: 'center' }}>
               <Button
@@ -150,6 +207,6 @@ const Register = () => {
       </div>
     </>
   );
-};
+}
 
 export default Register;

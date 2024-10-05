@@ -6,7 +6,7 @@ import './index.css';
 // Hàm formatter để tích hợp CountUp
 const formatter = (value) => <CountUp end={value} separator="," />;
 
-const Statistics = () => {
+function Statistics() {
   return (
     <div className="statistics-container">
       <Row gutter={16} justify="center">
@@ -53,6 +53,6 @@ const Statistics = () => {
       </Row>
     </div>
   );
-};
+}
 
 export default Statistics;
