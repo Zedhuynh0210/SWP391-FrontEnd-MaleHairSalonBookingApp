@@ -30,6 +30,12 @@ module.exports = {
             black: '#000',
             color3: '#47B5FF',
             color4: '#DFF6FF',
+            blue: '#007bff',
+            red: '#dc3545',
+            red2: '#fff1f4',
+            pink: '#e83e8c',
+            orange: '#fd7e14',
+            yellow: '#ffc107',
 
             /** color type of word
              * @summary noun (danh từ), verb (động từ), adj (tính từ), adverb(trạng  từ), pronoun(đại từ)
