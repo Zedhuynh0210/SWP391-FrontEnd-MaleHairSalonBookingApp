@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import Loading from './based/Loading';
 
 const HomePage = React.lazy(() => import('./homepage/homepage'));
-
 const AppRoutes = [
    {
       path: '/',
