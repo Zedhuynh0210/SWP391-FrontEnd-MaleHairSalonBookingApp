@@ -4,10 +4,12 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { StateProvider } from "./Context/StateProvider";
+import { UserProvider } from "./Context/UserContext";
 function App() {
 
   return (
     <>
+      <UserProvider>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <StateProvider>
@@ -15,6 +17,7 @@ function App() {
             </StateProvider>
           </PersistGate>
         </Provider>
+      </UserProvider>
     </>
   );
 }

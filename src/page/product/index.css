@@ -1,0 +1,33 @@
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Cân bằng nội dung giữa đầu và cuối thẻ */
+    align-items: center;
+    text-align: center;
+    height: 100%; /* Đảm bảo thẻ chiếm 100% chiều cao của cột */
+  }
+  
+  .product-content {
+    flex-grow: 1; /* Đảm bảo nội dung bên trong phát triển đầy đủ trong thẻ */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .ant-card {
+    height: 100%; /* Đảm bảo tất cả các thẻ có chiều cao bằng nhau */
+  }
+  
+  .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .footer{
+    margin-top: 10px;
+  }
+  

@@ -7,7 +7,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Image, Upload } from 'antd';
 import uploadFile from "../../../utils/file";
 
-function UserManagement() {
+function ServiceManagement() {
   const [users, setUsers] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [form] = useForm();
@@ -19,7 +19,7 @@ function UserManagement() {
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState([]);
 
-  const api = "https://670027404da5bd237553603f.mockapi.io/User";
+  const api = "https://6702ae2fbd7c8c1ccd3f8d7b.mockapi.io/Services";
 
   const fetchUser = async () => {
     const response = await axios.get(api);
@@ -37,25 +37,24 @@ function UserManagement() {
       key: "id",
     },
     {
-      title: "Userame",
-      dataIndex: "username",
-      key: "username",
-    },
-
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: "Phone",
-      dataIndex: "phone",
-      key: "phone",
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
     },
     {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
+        title: "Time",
+        dataIndex: "time",
+        key: "time",
+    },
+    {
+        title: "Price",
+        dataIndex: "price",
+        key: "price",
     },
     {
       title: "Image",
@@ -85,7 +84,7 @@ function UserManagement() {
 
           <Popconfirm
             title="Delete"
-            description="Do you want to delete this user?"
+            description="Do you want to delete this service?"
             onConfirm={() => handleDelete(id)}
           >
             <Button type="primary" danger>
@@ -119,17 +118,17 @@ function UserManagement() {
       if (isUpdate) {
         // Cập nhật người dùng
         await axios.put(`${api}/${currentUserId}`, userData);
-        toast.success('Successfully updated user!');
+        toast.success('Successfully updated service!');
       } else {
         // Tạo người dùng mới
         await axios.post(api, userData);
-        toast.success('Successfully created a new user!');
+        toast.success('Successfully created a new service!');
       }
       setOpenModal(false);
       form.resetFields();
       fetchUser(); // Lấy lại danh sách người dùng
     } catch (err) {
-      toast.error('Failed to save user.');
+      toast.error('Failed to save service.');
     } finally {
       setSubmitting(false);
     }
@@ -141,7 +140,7 @@ function UserManagement() {
       toast.success("Delete Successfully!");
       fetchUser();
     } catch (ex) {
-      toast.error("Failed to delete user!");
+      toast.error("Failed to delete service!");
     }
   };
 
@@ -179,39 +178,33 @@ function UserManagement() {
 
   return (
     <div>
-      <h1>User Management</h1>
-      <Button onClick={handleOpenModal}>Create new user</Button>
+      <h1>Service Management</h1>
+      <Button onClick={handleOpenModal}>Create new service</Button>
       <Table columns={columns} dataSource={users} />
       <Modal
         confirmLoading={submitting}
         onOk={() => form.submit()}
-        title={isUpdate ? "Update User" : "Create New User"}
+        title={isUpdate ? "Update Service" : "Create New Service"}
         open={openModal}
         onCancel={handleCloseModal}
       >
         <Form onFinish={handleSubmit} form={form}>
-          <Form.Item label="Username" name="username" rules={[{ required: true, message: "Please input username!" }]}>
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: "Please input name!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Password" name="password" rules={[{ required: true, message: "Please input password!" }]}>
-            <Input type="password" />
-          </Form.Item>
-
-          <Form.Item label="Email" name="email" rules={[{ required: true, message: "Please input email!" }]}>
+          <Form.Item label="Description" name="description" rules={[{ required: true, message: "Please input description!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Phone" name="phone" rules={[
-            { required: true, message: "Please input phone!" },
-            { pattern: /^\d{10}$/, message: "Invalid Format!" }
-          ]}>
+          <Form.Item label="Time" name="time" rules={[{ required: true, message: "Please input time!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Role" name="role" rules={[{ required: true, message: "Please input role!" }]}>
+          <Form.Item label="Price" name="price" rules={[{ required: true, message: "Please input price!" }]}>
             <Input />
           </Form.Item>
+
 
           <Form.Item label="Image" name="image">
             <Upload
@@ -241,4 +234,4 @@ function UserManagement() {
   );
 }
 
-export default UserManagement;
+export default ServiceManagement;
