@@ -4,7 +4,10 @@ import LoginPage from "../page/login";
 import Register from "../page/register";
 import Member from "../page/member";
 import Dashboard from "../components/dashboard";
-import Manage from "../page/admin/manage-user";
+import UserManagement from "../page/admin/manage-user";
+import ProductManagement from "../page/admin/manage-product"; 
+import Product from "../page/product";
+import ServiceManagement from "../page/admin/manage-service";
 
 export const router = createBrowserRouter([
   {
@@ -12,24 +15,38 @@ export const router = createBrowserRouter([
     element: <HomePage/>
   },
   {
-    path:"/login",
+    path:"login",
     element: <LoginPage/>
   },
   {
-    path:"/register",
+    path:"register",
     element: <Register/>
   },
   {
-    path:"/member",
+    path:"member",
     element: <Member/>
   },
   {
-    path:"/dashboard",
-    element: <Dashboard/>
+    path:"dashboard",
+    element: <Dashboard/>,
+    children: [
+      {
+        path: "usermanagement",
+        element: <UserManagement/>
+      },
+      {
+        path: "productmanagement",
+        element: <ProductManagement/>
+      },
+      {
+        path: "servicemanagement",
+        element: <ServiceManagement/>
+      },
+    ],
   },
   {
-    path:"/manage",
-    element: <Manage/>
+    path:"product",
+    element: <Product/>
   }
 
 ]);

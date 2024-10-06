@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Spin } from 'antd';
+import { Button, Form, Input, Spin } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../config/axios';
 import Header from '../../components/header';
@@ -7,11 +7,14 @@ import { useState } from 'react';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { ggProvider } from '../../config/firebase';
 import { FcGoogle } from "react-icons/fc";
+import { toast } from 'react-toastify';
+import { useUser } from '../../Context/UserContext';
 
 function Login() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // Trạng thái loading
+  const { setUser } = useUser();
 
   const handleLoginGoogle = () => {
     const auth = getAuth();
@@ -42,28 +45,27 @@ function Login() {
   });
   }
 
-  const onFinish = async (values) => {
+  const handleLogin = async (values) => {
     setLoading(true); // Bắt đầu spin loading
 
     try {
-      const response = await axios.post('api/login', {
-        username: values.username,
-        password: values.password,
-      });
+      const response = await axios.post('login', values);
+      const { token, fullName } = response.data;
+      localStorage.setItem("token", token);
 
       // Giả lập thời gian chờ 1 giây
       setTimeout(() => {
         setLoading(false); // Kết thúc spin loading
 
         if (response.status === 200) {
-          message.success('Login Successfully!');
+          toast.success('Login Successfully!');
+          setUser(fullName);
           navigate('/member');
         }
       }, 1000);
     } catch (error) {
       setLoading(false); // Tắt loading khi có lỗi
-      console.error('Error during login:', error.response ? error.response.data : error.message);
-      message.error('Login Failed! Please check information again.');
+      toast.error('Login Failed! Please check information again.');
     }
   };
 
@@ -80,7 +82,7 @@ function Login() {
           <Form
             form={form}
             name="login"
-            onFinish={onFinish}
+            onFinish={handleLogin}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
             layout="vertical"

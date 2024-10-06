@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Spin } from 'antd';
+import { Button, Form, Input, Spin } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../config/axios'; 
 import Header from '../../components/header';
@@ -8,11 +8,14 @@ import { useState } from 'react';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { ggProvider } from '../../config/firebase';
 import { FcGoogle } from "react-icons/fc";
+import { toast } from 'react-toastify';
+import { useUser } from '../../Context/UserContext';
 
 function Register() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // Trạng thái loading
+  const { setUser } = useUser();
 
   const handleRegisterGoogle = () => {
     const auth = getAuth();
@@ -43,31 +46,25 @@ function Register() {
   });
   }
 
-  const onFinish = async (values) => {
+  const handleRegister = async (values) => {
     setLoading(true); // Hiển thị spin loading khi bắt đầu đăng ký
 
     try {
-      const response = await axios.post('api/register', {
-        username: values.username,
-        password: values.password,
-        email: values.email,
-        phone_number: values.phone_number,
-        address: values.address,
-      });
+      const response = await axios.post('register', values);
 
       // Giả lập thời gian chờ 1 giây
       setTimeout(() => {
         setLoading(false); // Tắt spin loading sau 1 giây
 
-        if (response.status === 201) {
-          message.success('Register Successfully!');
+        if (response.status === 200) {
+          toast.success('Register Successfully!');
+          setUser(values.fullName);
           navigate('/member');
         }
       }, 1000); // Thời gian loading là 1 giây
-    } catch (error) {
+    } catch (err) {
       setLoading(false); // Tắt spin loading nếu gặp lỗi
-      console.error('Error during registration:', error.response ? error.response.data : error.message);
-      message.error('Register Failed! Please check information again.');
+      toast.error('Register Failed! Please check information again.');
     }
   };
 
@@ -84,7 +81,7 @@ function Register() {
           <Form
             form={form}
             name="register"
-            onFinish={onFinish}
+            onFinish={handleRegister}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
             layout="vertical"
@@ -101,7 +98,19 @@ function Register() {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
+              <Form.Item
+                  label="FullName"
+                  name="fullName"
+                  rules={[{ required: true, message: 'Please input your phone number!' }]}
+                >
+                  <Input placeholder="FullName" />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
                   label="Password"
                   name="password"
                   rules={[{ required: true, message: 'Please input your password!' }]}
@@ -109,9 +118,6 @@ function Register() {
                   <Input.Password placeholder="Password" />
                 </Form.Item>
               </Col>
-            </Row>
-
-            <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
                   label="Confirm Password"
@@ -131,18 +137,35 @@ function Register() {
                   <Input.Password placeholder="Confirm Password" />
                 </Form.Item>
               </Col>
+              
+            </Row>
+            <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
                   label="Email"
                   name="email"
-                  rules={[{ required: true, message: 'Please input your email!' }]}
+                  rules={[
+                    { 
+                      required: true, message: 'Please input your email!' 
+                    },
+                    {
+                      type: 'email', // Kiểm tra định dạng email
+                      message: 'Please enter a valid email!',
+                    },
+                    {
+                      required: true, // Bắt buộc nhập
+                      message: 'Email is required!',
+                    },
+                    ]}
                 >
                   <Input placeholder="Email" />
                 </Form.Item>
               </Col>
             </Row>
 
-            <Row gutter={16}>
+            
+
+            {/* <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
                   label="Phone Number"
@@ -161,7 +184,7 @@ function Register() {
                   <Input placeholder="Address" />
                 </Form.Item>
               </Col>
-            </Row>
+            </Row> */}
             
             <Link to="/login">Already have account? Login account</Link>
 

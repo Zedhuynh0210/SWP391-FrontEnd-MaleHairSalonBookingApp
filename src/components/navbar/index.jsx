@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { Dropdown, message, Space } from 'antd';
 import { UserOutlined, SettingOutlined, LogoutOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import hairSalonLogo from "../../assets/images/HairSalon.png";
+import { useUser } from "../../Context/UserContext";
 
 function Navbar() {
+    const { user } = useUser();
+    console.log('Current user:', user);
     const handleMenuClick = (e) => {
         message.info('Click on menu item.');
         console.log('click', e);
@@ -64,7 +67,7 @@ function Navbar() {
                 <Link to="/member">Home</Link>
                 <Link to="/services">Services</Link>
                 <Link to="/stylists">Stylists</Link>
-                <Link to="/products">Products</Link>
+                <Link to="/product">Products</Link>
                 <Link to="/contact">Contact</Link>
             </div>
 
@@ -101,7 +104,7 @@ function Navbar() {
             <div className="user-avatar">
                 <Space wrap>
                     <Dropdown.Button menu={menuProps} placement="bottom" icon={<UserOutlined />}>
-                        User
+                    {user ? `Welcome, ${user}` : 'Welcome!'}
                     </Dropdown.Button>
                 </Space>
             </div>
