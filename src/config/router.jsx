@@ -8,6 +8,7 @@ import UserManagement from "../page/admin/manage-user";
 import ProductManagement from "../page/admin/manage-product"; 
 import Product from "../page/product";
 import ServiceManagement from "../page/admin/manage-service";
+import Service from "../page/service";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
   {
     path:"product",
     element: <Product/>
+  },
+  {
+    path:"service",
+    element: <Service/>
   }
 
 ]);

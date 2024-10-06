@@ -42,11 +42,6 @@ function ServiceManagement() {
       key: "name",
     },
     {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
-    },
-    {
       title: "Description",
       dataIndex: "description",
       key: "description",
@@ -195,10 +190,6 @@ function ServiceManagement() {
       >
         <Form onFinish={handleSubmit} form={form}>
           <Form.Item label="Name" name="name" rules={[{ required: true, message: "Please input name!" }]}>
-            <Input />
-          </Form.Item>
-
-          <Form.Item label="Type" name="type" rules={[{ required: true, message: "Please input type!" }]}>
             <Input />
           </Form.Item>
 
