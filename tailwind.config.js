@@ -27,9 +27,10 @@ module.exports = {
              */
             color1: '#06283D',
             color2: '#1363DF',
-            black: '#000',
             color3: '#47B5FF',
             color4: '#DFF6FF',
+
+            black: '#000',
             blue: '#007bff',
             red: '#dc3545',
             red2: '#fff1f4',

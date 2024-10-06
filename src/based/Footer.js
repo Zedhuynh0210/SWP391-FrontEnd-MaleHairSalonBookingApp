@@ -1,21 +1,19 @@
 // Footer.jsx
 import React from 'react';
 import { Check } from 'lucide-react';
-
 function Footer() {
+   // Define service items as arrays for easy mapping
    const servicesWithCheck = [
       'Haircuts in both modern and classic styles',
       'Beard trimming, shaving, and facial care',
       'Consultation on hairstyles that suit individual face shapes and personal style',
       'Hair care services such as washing, perming, dyeing, and styling',
    ];
-
    const socialLinks = [
       { name: 'Facebook', href: 'https://www.facebook.com' },
       { name: 'Instagram', href: 'https://www.instagram.com' },
       { name: 'Twitter', href: 'https://www.twitter.com' },
    ];
-
    return (
       <footer className="bg-black text-white py-10">
          <div className="max-w-7xl mx-auto px-4">
@@ -28,7 +26,6 @@ function Footer() {
                      clients can relax and enhance their appearance.
                   </p>
                </div>
-
                {/* Our Services Column */}
                <div className="flex-1 min-w-[180px] px-4 mb-8 md:mb-0">
                   <h3 className="text-xl mb-5 font-bold">Our Services</h3>
@@ -51,7 +48,6 @@ function Footer() {
                      ))}
                   </ul>
                </div>
-
                {/* Schedule Column */}
                <div className="flex-1 min-w-[180px] px-4 mb-8 md:mb-0">
                   <h3 className="text-xl mb-5 font-bold">Schedule</h3>
@@ -60,7 +56,6 @@ function Footer() {
                      <li className="text-sm leading-relaxed">08:00 am - 10:00 pm</li>
                   </ul>
                </div>
-
                {/* Follow Us Column */}
                <div className="flex-1 min-w-[180px] px-4 mb-8 md:mb-0">
                   <h3 className="text-xl mb-5 font-bold font-bold">Follow Us</h3>
@@ -79,7 +74,6 @@ function Footer() {
                      ))}
                   </ul>
                </div>
-
                {/* Contact Us Column */}
                <div className="flex-1 min-w-[180px] px-4">
                   <h3 className="text-xl mb-5 font-bold">Contact Us</h3>
@@ -101,5 +95,4 @@ function Footer() {
       </footer>
    );
 }
-
 export default Footer;
