@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, Col, Row, Button, Spin, Image, Pagination } from "antd";
 import './index.css';
+import Header from "../../components/header";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
 
@@ -10,6 +11,7 @@ function Service() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const [pageSize] = useState(10); // Số sản phẩm mỗi trang (2 dòng x 5 sản phẩm = 10 sản phẩm)
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Trạng thái đăng nhập
 
   const api = "https://6702ae2fbd7c8c1ccd3f8d7b.mockapi.io/Services";
 
@@ -30,6 +32,17 @@ function Service() {
     fetchProducts();
   }, []);
 
+  // Giả sử bạn có một hàm để kiểm tra trạng thái đăng nhập
+  useEffect(() => {
+    // Kiểm tra trạng thái đăng nhập dựa trên token
+    const checkLoginStatus = () => {
+      const token = localStorage.getItem("token");
+      const loggedIn = token !== null; // Kiểm tra nếu token tồn tại
+      setIsLoggedIn(loggedIn);
+    };
+
+    checkLoginStatus();
+  }, []);
 
   // Xác định các sản phẩm hiển thị trên trang hiện tại
   const indexOfLastProduct = currentPage * pageSize;
@@ -43,7 +56,7 @@ function Service() {
 
   return (
     <div style={{ padding: "10px" }}>
-    <Navbar/>
+      {isLoggedIn ? <Navbar /> : <Header />}
       <h1>Services</h1>
       {loading ? (
         <Spin size="large" />

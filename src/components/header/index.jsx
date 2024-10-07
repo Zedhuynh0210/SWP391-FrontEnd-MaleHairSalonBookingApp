@@ -22,7 +22,7 @@ function Header() {
             <div className="nav-links">
                 <Link to="/">Home</Link>
                 <Link to="/service">Services</Link>
-                <Link to="/stylists">Stylists</Link>
+                <Link to="/stylist">Stylists</Link>
                 <Link to="/product">Products</Link>
                 <Link to="/contact">Contact</Link>
             </div>

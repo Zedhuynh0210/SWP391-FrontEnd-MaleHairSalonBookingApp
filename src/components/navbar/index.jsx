@@ -1,16 +1,29 @@
 import "./index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dropdown, message, Space } from 'antd';
 import { UserOutlined, SettingOutlined, LogoutOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import hairSalonLogo from "../../assets/images/HairSalon.png";
 import { useUser } from "../../Context/UserContext";
 
 function Navbar() {
-    const { user } = useUser();
-    console.log('Current user:', user);
+    const { user, setUser } = useUser(); // Assuming you have a setUser function in your UserContext to clear user data
+    const navigate = useNavigate();
+
     const handleMenuClick = (e) => {
-        message.info('Click on menu item.');
-        console.log('click', e);
+        if (e.key === 'logout') {
+            // Clear all user data including token
+            localStorage.clear(); // Xóa tất cả dữ liệu trong localStorage
+            setUser(null);
+            
+            // Display a message
+            message.success('You have successfully logged out.');
+            
+            // Redirect to the home page
+            navigate('/');
+        } else {
+            message.info('Click on menu item.');
+            console.log('click', e);
+        }
     };
 
     const items = [
@@ -104,7 +117,7 @@ function Navbar() {
             <div className="user-avatar">
                 <Space wrap>
                     <Dropdown.Button menu={menuProps} placement="bottom" icon={<UserOutlined />}>
-                    {user ? `Welcome, ${user}` : 'Welcome!'}
+                    {user ? `Welcome, ${user}` : ''}
                     </Dropdown.Button>
                 </Space>
             </div>

@@ -57,5 +57,12 @@
   .column ul li a:hover {
     color: #c1b6b6; 
   }
+
+  .location-image {
+    width: 200px; /* Điều chỉnh kích thước theo ý muốn */
+    height: 150px; /* Giữ tỷ lệ khung hình */
+  }
+
+  
   
   
