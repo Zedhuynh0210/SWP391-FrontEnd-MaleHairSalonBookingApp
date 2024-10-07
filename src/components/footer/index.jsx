@@ -7,15 +7,12 @@ function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="row">
-          <div className="column">
-            <h3>Menu</h3>
-            <ul>
-              <li><a href="/services">Services</a></li>
-              <li><a href="/stylists">Stylists</a></li>
-              <li><a href="/products">Products</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
-          </div>
+        <div className="column">
+              <h3>Location</h3>
+              <div>
+                <img src="https://www.google.com/maps/vt/data=qDXsXA9PI2ww8CVoNGFbLJvMnfi0MnJ0Y4rWDOQ4njrwgf9VRijaGZ4qcnqvyl-IWU-tx5gpYYLvf2a9GrHDZPFZOpXY2YWiTUeM00WdgPfyoxsrr5KREjPstLgLodS_SEN7gveD66w8YJD4XGYeHcjLYWSDuaglhEm4WT2Mc0ww-Xx30n5LFdrLjmgKLI00FsIZRiQvo4gfdSgNJ7TWY8R0nS45bQbA6AxOJT-TH0QDSf2aKjgJa6zDXn4J0XP-5WCv_650Imx2bvEQXg" alt="" className="location-image" />
+              </div>
+            </div>
           <div className="column">
             <h3>Our Services</h3>
             <ul>
