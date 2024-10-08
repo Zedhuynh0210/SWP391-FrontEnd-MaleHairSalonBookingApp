@@ -3,12 +3,12 @@ import HomePage from "../page/home";
 import LoginPage from "../page/login";
 import Register from "../page/register";
 import Member from "../page/member";
-import Dashboard from "../components/dashboard";
-import UserManagement from "../page/admin/manage-user";
-import ProductManagement from "../page/admin/manage-product"; 
-import Product from "../page/product";
-import ServiceManagement from "../page/admin/manage-service";
-import Service from "../page/service";
+import Dashboard from "../page/admin/dashboard";
+import Inventory from "../page/admin/inventory";
+import Services from "../page/admin/services";
+import Orders from "../page/admin/orders";
+import Users from "../page/admin/users";
+import Admin from "../page/admin";
 
 export const router = createBrowserRouter([
   {
@@ -28,30 +28,31 @@ export const router = createBrowserRouter([
     element: <Member/>
   },
   {
-    path:"dashboard",
-    element: <Dashboard/>,
+    path:"admin",
+    element: <Admin/>,
     children: [
       {
-        path: "usermanagement",
-        element: <UserManagement/>
+        path: "dashboard",
+        element: <Dashboard />, // Component cho trang Dashboard
       },
       {
-        path: "productmanagement",
-        element: <ProductManagement/>
+        path: "services",
+        element: <Services />, // Component cho trang Dashboard
       },
       {
-        path: "servicemanagement",
-        element: <ServiceManagement/>
+        path: "inventory",
+        element: <Inventory />, // Component cho trang Inventory
+      },
+      {
+        path: "orders",
+        element: <Orders />, // Component cho trang Orders
+      },
+      {
+        path: "users",
+        element: <Users />, // Component cho trang Users
       },
     ],
   },
-  {
-    path:"product",
-    element: <Product/>
-  },
-  {
-    path:"service",
-    element: <Service/>
-  }
+  
 
 ]);
