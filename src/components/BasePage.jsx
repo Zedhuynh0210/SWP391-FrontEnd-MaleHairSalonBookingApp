@@ -1,3 +1,4 @@
+import Footer from "./footer";
 import Header from "./header";
 
 export function BasePage({children}) {
@@ -5,6 +6,7 @@ export function BasePage({children}) {
     <>
     <Header/>
     {children}
+    <Footer/>
     </>
 );
 }
