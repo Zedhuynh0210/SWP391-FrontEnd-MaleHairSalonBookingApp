@@ -3,6 +3,7 @@
     color: white; 
     padding: 40px 0;
     text-align: left;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
   }
   
   .container {
