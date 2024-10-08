@@ -9,6 +9,7 @@ import ProductManagement from "../page/admin/manage-product";
 import Product from "../page/product";
 import ServiceManagement from "../page/admin/manage-service";
 import Service from "../page/service";
+import Stylist from "../page/stylist";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
   {
     path:"member",
     element: <Member/>
+  },
+  {
+    path:"stylist",
+    element: <Stylist/>
   },
   {
     path:"dashboard",
