@@ -7,6 +7,8 @@ function SlideMenu() {
   return (
     <div className="slidemenu">
         <Menu
+        className="slidemenuvertical"
+        mode="vertical"
         onClick={(item)=>{
            navigate(item.key);
         }}

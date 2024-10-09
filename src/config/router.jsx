@@ -9,6 +9,8 @@ import Services from "../page/admin/services";
 import Orders from "../page/admin/orders";
 import Users from "../page/admin/users";
 import Admin from "../page/admin";
+import Product from "../page/product";
+import Service from "../page/service";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +55,14 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "product",
+    element: <Product/>
+  },
+  {
+    path: "service",
+    element: <Service/>
+  }
   
 
 ]);
