@@ -11,58 +11,66 @@ import Users from "../page/admin/users";
 import Admin from "../page/admin";
 import Product from "../page/product";
 import Service from "../page/service";
+import Stylist from "../page/stylist/index";
+import StylistProfile from "../page/stylist-detail";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage/>
-  },
-  {
-    path:"login",
-    element: <LoginPage/>
-  },
-  {
-    path:"register",
-    element: <Register/>
-  },
-  {
-    path:"member",
-    element: <Member/>
-  },
-  {
-    path:"admin",
-    element: <Admin/>,
-    children: [
-      {
-        path: "dashboard",
-        element: <Dashboard />, // Component cho trang Dashboard
-      },
-      {
-        path: "services",
-        element: <Services />, // Component cho trang Dashboard
-      },
-      {
-        path: "inventory",
-        element: <Inventory />, // Component cho trang Inventory
-      },
-      {
-        path: "orders",
-        element: <Orders />, // Component cho trang Orders
-      },
-      {
-        path: "users",
-        element: <Users />, // Component cho trang Users
-      },
-    ],
-  },
-  {
-    path: "product",
-    element: <Product/>
-  },
-  {
-    path: "service",
-    element: <Service/>
-  }
-  
-
+    {
+        path: "/",
+        element: <HomePage />,
+    },
+    {
+        path: "login",
+        element: <LoginPage />,
+    },
+    {
+        path: "register",
+        element: <Register />,
+    },
+    {
+        path: "member",
+        element: <Member />,
+    },
+    {
+        path: "admin",
+        element: <Admin />,
+        children: [
+            {
+                path: "dashboard",
+                element: <Dashboard />, // Component cho trang Dashboard
+            },
+            {
+                path: "services",
+                element: <Services />, // Component cho trang Dashboard
+            },
+            {
+                path: "inventory",
+                element: <Inventory />, // Component cho trang Inventory
+            },
+            {
+                path: "orders",
+                element: <Orders />, // Component cho trang Orders
+            },
+            {
+                path: "users",
+                element: <Users />, // Component cho trang Users
+            },
+        ],
+    },
+    {
+        path: "product",
+        element: <Product />,
+    },
+    {
+        path: "service",
+        element: <Service />,
+    },
+    {
+        path: "stylist",
+        element: <Stylist />,
+    },
+    {
+        path: "stylist/:id",
+        element: <StylistProfile />,
+    },
 ]);
