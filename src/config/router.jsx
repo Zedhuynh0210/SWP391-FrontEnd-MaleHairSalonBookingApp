@@ -13,6 +13,7 @@ import Product from "../page/product";
 import Service from "../page/service";
 import Stylist from "../page/stylist/index";
 import StylistProfile from "../page/stylist-detail";
+import Contact from "../page/contact";
 
 export const router = createBrowserRouter([
     {
@@ -72,5 +73,9 @@ export const router = createBrowserRouter([
     {
         path: "stylist/:id",
         element: <StylistProfile />,
+    },
+    {
+        path: "contact",
+        element: <Contact />,
     },
 ]);
