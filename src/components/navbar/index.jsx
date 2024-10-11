@@ -79,7 +79,7 @@ function Navbar() {
             <div className="nav-links1">
                 <Link to="/member">Home</Link>
                 <Link to="/service">Services</Link>
-                <Link to="/stylists">Stylists</Link>
+                <Link to="/stylist">Stylists</Link>
                 <Link to="/product">Products</Link>
                 <Link to="/contact">Contact</Link>
             </div>
