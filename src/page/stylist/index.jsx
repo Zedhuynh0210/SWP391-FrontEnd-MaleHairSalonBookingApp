@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Building, Building2, MapPin, Receipt } from "lucide-react";
 import { Rate } from "antd";
 import { Link } from "react-router-dom";
 import { BasePage } from "../../components/BasePage";
+import Navbar from "../../components/Navbar";
+import Header from "../../components/header";
+
 const stylists = [
     {
         name: "Nguyễn Hoàng",
@@ -80,6 +83,9 @@ const stylists = [
 export default function StylistPage() {
     const [selectedLocations, setSelectedLocations] = useState([]);
 
+    // Hàm kiểm tra token
+    const isLoggedIn = !!localStorage.getItem("token"); // Kiểm tra xem token có tồn tại trong localStorage
+
     const handleLocationChange = (e) => {
         const value = e.target.value;
         setSelectedLocations((prev) =>
@@ -87,7 +93,7 @@ export default function StylistPage() {
                 ? prev.filter((loc) => loc !== value)
                 : [...prev, value]
         );
-    };
+    };  
 
     const filteredStylists = selectedLocations.length
         ? stylists.filter((stylist) =>
@@ -97,6 +103,7 @@ export default function StylistPage() {
 
     return (
         <BasePage>
+            {isLoggedIn ? <Navbar /> : <Header />}
             <Container>
                 <GridContainer>
                     <Sidebar>
@@ -241,7 +248,7 @@ export default function StylistPage() {
                                         </PriceContainer>
                                     </div>
                                     <Link to="/stylist/1">
-                                        <StyledButton>Đặt lịch</StyledButton>
+                                        <StyledButton>View Detail</StyledButton>
                                     </Link>
                                 </div>
                             </StylistItem>

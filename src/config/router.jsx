@@ -11,8 +11,10 @@ import Users from "../page/admin/users";
 import Admin from "../page/admin";
 import Product from "../page/product";
 import Service from "../page/service";
-import Stylist from "../page/stylist/index";
+import Stylist from "../page/stylist";
 import StylistProfile from "../page/stylist-detail";
+import Contact from "../page/contact";
+
 
 export const router = createBrowserRouter([
     {
@@ -73,4 +75,9 @@ export const router = createBrowserRouter([
         path: "stylist/:id",
         element: <StylistProfile />,
     },
+    {
+        path: "contact",
+        element: <Contact />,
+    },
+
 ]);

@@ -3,8 +3,9 @@ import axios from "axios";
 import { Card, Col, Row, InputNumber, Button, Spin, Image, Pagination, message } from "antd";
 import './index.css';
 import Header from "../../components/header";
-import Navbar from "../../components/navbar";
+
 import Footer from "../../components/footer";
+import Navbar from "../../components/Navbar";
 
 function Product() {
   const [products, setProducts] = useState([]);

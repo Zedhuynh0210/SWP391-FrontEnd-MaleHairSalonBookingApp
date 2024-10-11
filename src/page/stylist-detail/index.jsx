@@ -1,8 +1,9 @@
-// StylistProfile.jsx
 import React from "react";
 import styled from "styled-components";
 import { Building2, UserRoundCheck, MapPin, Receipt, Zap } from "lucide-react";
 import { BasePage } from "../../components/BasePage";
+import Navbar from "../../components/Navbar"; // Thêm import Navbar
+import Header from "../../components/header";
 
 const workSchedule = [
     { day: "Thứ 2", hours: "8:00 - 17:00" },
@@ -230,6 +231,7 @@ const ScheduleItem = styled.div`
     h2 {
         font-weight: 600;
         font-size: 1rem;
+        color: #000;
     }
     p {
         color: #6b7280;
@@ -238,6 +240,7 @@ const ScheduleItem = styled.div`
 
 export default function StylistProfile() {
     const [activeMenu, setActiveMenu] = React.useState(1);
+    const isLoggedIn = !!localStorage.getItem("token"); // Kiểm tra xem token có tồn tại trong localStorage
 
     const renderDetailMenu = () => {
         switch (activeMenu) {
@@ -279,6 +282,7 @@ export default function StylistProfile() {
 
     return (
         <BasePage>
+            {isLoggedIn ? <Navbar /> : <Header />}
             <Container>
                 <GridLayout>
                     <MainContent>
@@ -373,7 +377,6 @@ export default function StylistProfile() {
                             </PriceInfo>
                             <StyledButton>
                                 <Zap style={{ stroke: "#fff", fill: "#fff" }} />
-                                <span>Đặt lịch</span>
                             </StyledButton>
                         </PriceCard>
                         <WorkScheduleCard>
@@ -382,6 +385,7 @@ export default function StylistProfile() {
                                     style={{
                                         fontWeight: "bold",
                                         fontSize: "2rem",
+                                        color: "black",
                                     }}
                                 >
                                     Lịch làm việc
