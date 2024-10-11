@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Building, Building2, MapPin, Receipt } from "lucide-react";
 import { Rate } from "antd";
 import { Link } from "react-router-dom";
 import { BasePage } from "../../components/BasePage";
+import Navbar from "../../components/navbar";
+import Header from "../../components/header";
 const stylists = [
     {
         name: "Nguyễn Hoàng",
@@ -94,9 +96,13 @@ export default function StylistPage() {
               selectedLocations.includes(stylist.location)
           )
         : stylists;
+    
+    // Hàm kiểm tra token
+    const isLoggedIn = !!localStorage.getItem("token"); // Kiểm tra xem token có tồn tại trong localStorage
 
     return (
         <BasePage>
+        {isLoggedIn ? <Navbar /> : <Header />}
             <Container>
                 <GridContainer>
                     <Sidebar>

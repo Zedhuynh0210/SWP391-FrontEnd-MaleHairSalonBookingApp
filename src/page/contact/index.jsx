@@ -2,12 +2,17 @@ import { BasePage } from "../../components/BasePage";
 import { Flex, Input, Button } from "antd";
 const { TextArea } = Input;
 import styled from "styled-components";
+import Navbar from "../../components/navbar";
+import Header from "../../components/header";
 export default function Contact() {
     const onChange = (e) => {
         console.log(e.target.value);
     };
+    // Hàm kiểm tra token
+    const isLoggedIn = !!localStorage.getItem("token"); // Kiểm tra xem token có tồn tại trong localStorage
     return (
         <BasePage>
+        {isLoggedIn ? <Navbar /> : <Header />}
             <h1>Contact</h1>
             <div style={{ width: "100%", height: "500px" }}>
                 <iframe
