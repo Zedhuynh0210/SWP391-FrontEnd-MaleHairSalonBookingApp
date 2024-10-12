@@ -7,7 +7,7 @@ import { EditOutlined, PlusOutlined, StopOutlined } from '@ant-design/icons';
 import { Image, Upload } from 'antd';
 import uploadFile from "../../../utils/file";
 
-function Services() {
+function Booking() {
   const [datas, setDatas] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [form] = useForm();
@@ -262,4 +262,4 @@ function Services() {
   );
 }
 
-export default Services;
+export default Booking;

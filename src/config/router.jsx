@@ -4,9 +4,7 @@ import LoginPage from "../page/login";
 import Register from "../page/register";
 import Member from "../page/member";
 import Dashboard from "../page/admin/dashboard";
-import Inventory from "../page/admin/inventory";
 import Services from "../page/admin/services";
-import Orders from "../page/admin/orders";
 import Users from "../page/admin/users";
 import Admin from "../page/admin";
 import Product from "../page/product";
@@ -14,6 +12,9 @@ import Service from "../page/service";
 import Stylist from "../page/stylist/index";
 import StylistProfile from "../page/stylist-detail";
 import Contact from "../page/contact";
+import Staff from "../page/staff";
+import Booking from "../page/admin/booking";
+import Stylists from "../page/admin/stylist";
 
 export const router = createBrowserRouter([
     {
@@ -41,20 +42,20 @@ export const router = createBrowserRouter([
                 element: <Dashboard />, // Component cho trang Dashboard
             },
             {
+                path: "booking",
+                element: <Booking />, // Component cho trang Dashboard
+            },
+            {
                 path: "services",
                 element: <Services />, // Component cho trang Dashboard
             },
             {
-                path: "inventory",
-                element: <Inventory />, // Component cho trang Inventory
-            },
-            {
-                path: "orders",
-                element: <Orders />, // Component cho trang Orders
-            },
-            {
                 path: "users",
                 element: <Users />, // Component cho trang Users
+            },
+            {
+                path: "stylists",
+                element: <Stylists />, // Component cho trang Users
             },
         ],
     },
@@ -77,5 +78,9 @@ export const router = createBrowserRouter([
     {
         path: "contact",
         element: <Contact />,
+    },
+    {
+        path: "staff",
+        element: <Staff />,
     },
 ]);

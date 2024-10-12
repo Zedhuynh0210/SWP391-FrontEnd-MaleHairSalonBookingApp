@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Popconfirm, Table, Typography } from "antd";
+import { Button, Form, Input, Modal, Popconfirm, Rate, Table, Typography } from "antd";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { EditOutlined, PlusOutlined, StopOutlined } from '@ant-design/icons';
 import { Image, Upload } from 'antd';
 import uploadFile from "../../../utils/file";
 
-function Services() {
+function Stylists() {
   const [datas, setDatas] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [form] = useForm();
@@ -19,7 +19,7 @@ function Services() {
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState([]);
 
-  const api = "http://14.225.192.118:8080/api/services/getall"; // Cập nhật URL API mới
+  const api = "http://14.225.192.118:8080/api/stylist/getall"; // Cập nhật URL API mới
 
   const fetchData = async () => {
     const response = await axios.get(api);
@@ -37,24 +37,37 @@ function Services() {
       key: "id",
     },
     {
-      title: "Service Name", // Cập nhật tên cột
-      dataIndex: "serviceName", // Cập nhật dataIndex
-      key: "serviceName", // Cập nhật key
+      title: "Stylist Name", // Cập nhật tên cột
+      dataIndex: "stylistName", // Cập nhật dataIndex
+      key: "stylistName", // Cập nhật key
     },
     {
-      title: "Service Description", // Cập nhật tên cột
-      dataIndex: "serviceDescription", // Cập nhật dataIndex
-      key: "serviceDescription", // Cập nhật key
+      title: "Stylist Exp", // Cập nhật tên cột
+      dataIndex: "stylistExp", // Cập nhật dataIndex
+      key: "stylistExp", // Cập nhật key
     },
     {
-      title: "Service Price", // Cập nhật tên cột
-      dataIndex: "servicePrice", // Cập nhật dataIndex
-      key: "servicePrice", // Cập nhật key
+      title: "Info", // Cập nhật tên cột
+      dataIndex: "info", // Cập nhật dataIndex
+      key: "info", // Cập nhật key
     },
     {
-      title: "Service Type", // Cập nhật tên cột
-      dataIndex: "serviceType", // Cập nhật dataIndex
-      key: "serviceType", // Cập nhật key
+      title: "Location", // Cập nhật tên cột
+      dataIndex: "location", // Cập nhật dataIndex
+      key: "location", // Cập nhật key
+    },
+    {
+        title: "Rating", // Cập nhật tên cột
+        dataIndex: "rating", // Cập nhật dataIndex
+        key: "rating", // Cập nhật key
+        render: (rating)=>{
+            return <Rate value={rating} allowHalf disabled/>
+        }
+    },
+    {
+        title: "Availability", // Cập nhật tên cột
+        dataIndex: "availability", // Cập nhật dataIndex
+        key: "availability", // Cập nhật key
     },
     {
       title: "Status",
@@ -74,14 +87,14 @@ function Services() {
       title: "Action",
       dataIndex: "id",
       key: "id",
-      render: (id, services) => (
+      render: (id, stylists) => (
         <>
           <Button
             type="primary"
             onClick={() => {
               setIsUpdate(true);
               setOpenModal(true);
-              form.setFieldsValue(services);
+              form.setFieldsValue(stylists);
             }}
           >
             <EditOutlined />
@@ -89,7 +102,7 @@ function Services() {
 
           <Popconfirm
             title="Delete"
-            description="Do you want to block this service?"
+            description="Do you want to block this stylist?"
             onConfirm={() => handleDelete(id)}
           >
             <Button type="primary" danger>
@@ -122,18 +135,18 @@ function Services() {
       setSubmitting(true);
       if (values.id) {
         // Cập nhật dịch vụ
-        await axios.put(`http://14.225.192.118:8080/api/services/udate/${values.id}`, values); // Cập nhật URL API
+        await axios.put(`http://14.225.192.118:8080/api/stylist/udate/${values.id}`, values); // Cập nhật URL API
         toast.success('Successfully updated service!');
       } else {
         // Tạo dịch vụ mới
-        await axios.post("http://14.225.192.118:8080/api/services/create", values);
-        toast.success('Successfully created a new service!');
+        await axios.post("http://14.225.192.118:8080/api/stylist/create", values);
+        toast.success('Successfully created a new stylist!');
       }
       setOpenModal(false);
       form.resetFields();
       fetchData(); // Lấy lại danh sách người dùng
     } catch (err) {
-      toast.error('Failed to save service.');
+      toast.error('Failed to save stylist.');
     } finally {
       setSubmitting(false);
     }
@@ -141,11 +154,11 @@ function Services() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://14.225.192.118:8080/api/services/delete/${id}`);
+      await axios.delete(`http://14.225.192.118:8080/api/stylist/delete/${id}`);
       toast.success("Delete Successfully!");
       fetchData();
     } catch (ex) {
-      toast.error("Failed to delete service!");
+      toast.error("Failed to delete stylist!");
     }
   };
 
@@ -185,21 +198,21 @@ function Services() {
     try {
       if (!id) {
         // Khi không có ID, gọi API để lấy tất cả dịch vụ
-        const response = await axios.get('http://14.225.192.118:8080/api/services/getall'); // Lấy tất cả dịch vụ
+        const response = await axios.get('http://14.225.192.118:8080/api/stylist/getall'); // Lấy tất cả dịch vụ
         setDatas(response.data); // Cập nhật danh sách dữ liệu với tất cả dịch vụ
       } else {
-        const response = await axios.get(`http://14.225.192.118:8080/api/services/get/${id}`); // Sử dụng API mới
+        const response = await axios.get(`http://14.225.192.118:8080/api/stylist/get/${id}`); // Sử dụng API mới
         setDatas([response.data]); // Cập nhật danh sách dữ liệu với kết quả tìm kiếm
       }
     } catch (error) {
-      toast.error('Failed to fetch service by ID.');
+      toast.error('Failed to fetch stylist by ID.');
     }
   };
 
   return (
     <div>
-      <Typography.Title level={4}>Services</Typography.Title>
-      <Button onClick={handleOpenModal}>Create new service</Button>
+      <Typography.Title level={4}>Stylists</Typography.Title>
+      <Button onClick={handleOpenModal}>Create new stylist</Button>
       <Input.Search
         placeholder="Search by ID"
         onSearch={value => handleSearch(value)} // Thêm hàm tìm kiếm
@@ -209,7 +222,7 @@ function Services() {
       <Modal
         confirmLoading={submitting}
         onOk={() => form.submit()}
-        title={isUpdate ? "Update Service" : "Create New Service"}
+        title={isUpdate ? "Update Stylist" : "Create New Stylist"}
         open={openModal}
         onCancel={handleCloseModal}
       >
@@ -217,19 +230,27 @@ function Services() {
           <Form.Item name="id" hidden>
             <Input/>
           </Form.Item>
-          <Form.Item label="ServiceName" name="serviceName" rules={[{ required: true, message: "Please input serviceName!" }]}>
+          <Form.Item label="Stylist Name" name="stylistName" rules={[{ required: true, message: "Please input stylist name!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Description" name="serviceDescription" rules={[{ required: true, message: "Please input description!" }]}>
+          <Form.Item label="Stylist Exp" name="stylistExp" rules={[{ required: true, message: "Please input Stylist Exp!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Type" name="serviceType" rules={[{ required: true, message: "Please input type!" }]}>
+          <Form.Item label="Info" name="info" rules={[{ required: true, message: "Please input info!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Price" name="servicePrice" rules={[{ required: true, message: "Please input price!" }]}>
+          <Form.Item label="Location" name="location" rules={[{ required: true, message: "Please input location!" }]}>
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="Rating" name="rating" rules={[{ required: true, message: "Please input rating!" }]}>
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="Availability" name="availability" rules={[{ required: true, message: "Please input availability!" }]}>
             <Input />
           </Form.Item>
 
@@ -262,4 +283,4 @@ function Services() {
   );
 }
 
-export default Services;
+export default Stylists;
