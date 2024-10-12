@@ -51,6 +51,8 @@ function Register() {
 
     try {
       const response = await axios.post('register', values);
+      const { token, fullName } = response.data;
+      localStorage.setItem("token", token);
 
       // Giả lập thời gian chờ 1 giây
       setTimeout(() => {
@@ -58,7 +60,7 @@ function Register() {
 
         if (response.status === 200) {
           toast.success('Register Successfully!');
-          setUser(values.fullName);
+          setUser(fullName);
           navigate('/member');
         }
       }, 1000); // Thời gian loading là 1 giây

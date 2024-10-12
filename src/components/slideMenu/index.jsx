@@ -1,4 +1,4 @@
-import { AppstoreOutlined, CustomerServiceOutlined, ShopOutlined, ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, CustomerServiceOutlined, ShopOutlined, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -24,19 +24,19 @@ function SlideMenu() {
             key:'/admin/services'
         },
         {
-            label:"Inventory",
+            label:"Booking",
             icon:<ShopOutlined/>,
-            key:'/admin/inventory',
-        },
-        {
-            label:"Orders",
-            icon:<ShoppingCartOutlined/>,
-            key:'/admin/orders',
+            key:'/admin/booking',
         },
         {
             label:"Users",
             icon:<UserOutlined/>,
             key:'/admin/users',
+        },
+        {
+            label:"Stylists",
+            icon:<UserOutlined/>,
+            key:'/admin/stylists',
         }
         ]}>
 
