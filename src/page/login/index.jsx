@@ -9,12 +9,18 @@ import { ggProvider } from '../../config/firebase';
 import { FcGoogle } from "react-icons/fc";
 import { toast } from 'react-toastify';
 import { useUser } from '../../Context/UserContext';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/features/counterSlice';
 
 function Login() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); // Trạng thái loading
   const { setUser } = useUser();
+
+  //lưu vào redux: useDispatch()
+  //lấy dữ liệu: useSlector()
+  const dispatch = useDispatch();
 
   const handleLoginGoogle = () => {
     const auth = getAuth();
@@ -50,6 +56,7 @@ function Login() {
 
     try {
       const response = await axios.post('login', values);
+      dispatch(login(response.data));
       const { token, fullName } = response.data;
       localStorage.setItem("token", token);
 

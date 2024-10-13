@@ -10,10 +10,10 @@ function Service() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-  const [pageSize] = useState(10); // Số sản phẩm mỗi trang (2 dòng x 5 sản phẩm = 10 sản phẩm)
+  const [pageSize] = useState(8); // Số sản phẩm mỗi trang (2 dòng x 5 sản phẩm = 10 sản phẩm)
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Trạng thái đăng nhập
 
-  const api = "https://6702ae2fbd7c8c1ccd3f8d7b.mockapi.io/Services";
+  const api = "http://14.225.192.118:8080/api/Category/getall";
 
   // Hàm fetch sản phẩm từ mock API
   const fetchProducts = async () => {
@@ -47,7 +47,9 @@ function Service() {
   // Xác định các sản phẩm hiển thị trên trang hiện tại
   const indexOfLastProduct = currentPage * pageSize;
   const indexOfFirstProduct = indexOfLastProduct - pageSize;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products
+    .filter(service => !service.delete) // Lọc sản phẩm có delete là false
+    .slice(indexOfFirstProduct, indexOfLastProduct);
 
   // Hàm xử lý khi thay đổi trang
   const handlePageChange = (page) => {
@@ -62,28 +64,27 @@ function Service() {
         <Spin size="large" />
       ) : (
         <>
-          <Row gutter={[16, 16]}>
+          <Row gutter={[12, 12]}>
             <Image.PreviewGroup>
-              {currentProducts.map((product) => (
-                <Col key={product.id} xs={24} sm={12} md={8} lg={4} xl={4}>
+              {currentProducts.map((service) => (
+                <Col key={service.id} xs={24} sm={12} md={8} lg={6} xl={6}>
                   <Card
+                    style={{backgroundColor: 'lightgray'}}
                     hoverable
                     cover={
                       <Image
-                        alt={product.name}
-                        src={product.image}
+                        alt=""
+                        src="https://media.istockphoto.com/id/640274128/vi/anh/th%E1%BB%A3-c%E1%BA%AFt-t%C3%B3c-s%E1%BB%AD-d%E1%BB%A5ng-k%C3%A9o-v%C3%A0-l%C6%B0%E1%BB%A3c.jpg?s=612x612&w=0&k=20&c=o82ARZnhqPdFAqU6WOWLnnP-Z7dGi22crXtevsOguAU="
                         style={{ height: 200, objectFit: "cover" }}
                       />
                     }
                     className="product-card"
                   >
                     <div className="product-content">
-                      <h3>{product.name}</h3>
-                      <p>{product.description}</p>
-                      <h3>Price: ${product.price}</h3>
-                      <p>{product.time}</p>
+                      <h3>{service.categoryName}</h3>
+                      <p>{service.categoryDescription}</p>
                       <Button type="primary">
-                        Book Now
+                        View Details
                       </Button>
                     </div>
                   </Card>
@@ -95,7 +96,7 @@ function Service() {
           {/* Pagination component */}
           <Pagination
             current={currentPage}
-            pageSize={pageSize}
+            pageSize = {5}
             total={products.length}
             onChange={handlePageChange}
             style={{ textAlign: "center", marginTop: "20px" }}

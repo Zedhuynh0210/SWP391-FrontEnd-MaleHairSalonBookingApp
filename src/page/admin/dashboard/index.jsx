@@ -121,7 +121,7 @@ function Dashboard() {
           />
           </Space>
           <Space>
-            <RecentOrders/>
+            <RecentBooking/>
             <DashboardChart/>
           </Space>
           </Space>
@@ -140,45 +140,45 @@ function DashboardCard({title, value, icon}){
   );
 }
 
-function RecentOrders() {
-  const [dataSource, setDataSource] = useState([])
-  const [loading, setLoading] = useState(false)
+function RecentBooking() {
+  const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    getOrders().then(res=>{
-      setDataSource(res.products);
-      setLoading(false);
-    })
-  
-    
-  }, [])
-  
-  return(
+    fetch('http://14.225.192.118:8080/api/booking/getall')
+      .then((response) => response.json())
+      .then((res) => {
+        setDataSource(res); // Cập nhật dữ liệu từ API
+        setLoading(false);
+      })
+      .catch(() => setLoading(false)); // Xử lý lỗi nếu có
+  }, []);
+
+  return (
     <>
-    <Typography.Text>Recent Orders</Typography.Text>
-    <Table
-    columns={[{
-      title:"Title",
-      dataIndex:"title",
-    },
-    {
-      title:"Quantity",
-      dataIndex:"quantity",
-    },
-    {
-      title:"Price",
-      dataIndex:"price",
-    }
-    ]}
-    loading={loading}
-    dataSource={dataSource}
-    pagination={false}
-    >
-      
-    </Table>
+      <Typography.Text>Recent Booking</Typography.Text>
+      <Table
+        pagination={{pageSize: 5}}
+        columns={[
+          {
+            title: "Service Name",
+            dataIndex: "serviceName", // Cập nhật trường dữ liệu
+          },
+          {
+            title: "Stylist Name",
+            dataIndex: "stylistName", // Cập nhật trường dữ liệu
+          },
+          {
+            title: "Booking Time",
+            dataIndex: "bookingTime", // Cập nhật trường dữ liệu
+          },
+        ]}
+        loading={loading}
+        dataSource={dataSource}
+      />
     </>
-  )
+  );
 }
 
 function DashboardChart() {
@@ -224,7 +224,7 @@ function DashboardChart() {
       },
       title: {
         display: true,
-        text: "Order Revenue",
+        text: "Booking Revenue",
       },
     },
   };

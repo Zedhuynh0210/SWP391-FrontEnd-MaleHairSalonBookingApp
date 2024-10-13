@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Popconfirm, Table, Typography } from "antd";
+import { Button, Form, Input, Modal, Popconfirm, Table, Typography, Tabs } from "antd";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -199,13 +199,28 @@ function Services() {
   return (
     <div>
       <Typography.Title level={4}>Services</Typography.Title>
-      <Button onClick={handleOpenModal}>Create new service</Button>
-      <Input.Search
-        placeholder="Search by ID"
-        onSearch={value => handleSearch(value)} // Thêm hàm tìm kiếm
-        style={{ width: 200, marginLeft: 10 }} // Thay đổi kích thước và khoảng cách
-      />
-      <Table columns={columns} dataSource={datas} pagination={{pageSize: 5}} />
+      
+      <Tabs defaultActiveKey="1">
+        <Tabs.TabPane tab="Active" key="1">
+          <Button onClick={handleOpenModal}>Create new service</Button>
+          <Input.Search
+            placeholder="Search by ID"
+            onSearch={value => handleSearch(value)}
+            style={{ width: 200, marginLeft: 10 }}
+          />
+          <Table columns={columns} dataSource={datas.filter(service => !service.delete)} pagination={{pageSize: 5}} /> {/* Hiển thị dịch vụ Active */}
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Inactive" key="2">
+          <Button onClick={handleOpenModal}>Create new service</Button>
+          <Input.Search
+            placeholder="Search by ID"
+            onSearch={value => handleSearch(value)}
+            style={{ width: 200, marginLeft: 10 }}
+          />
+          <Table columns={columns} dataSource={datas.filter(service => service.delete)} pagination={{pageSize: 5}} /> {/* Hiển thị dịch vụ Inactive */}
+        </Tabs.TabPane>
+      </Tabs>
+
       <Modal
         confirmLoading={submitting}
         onOk={() => form.submit()}

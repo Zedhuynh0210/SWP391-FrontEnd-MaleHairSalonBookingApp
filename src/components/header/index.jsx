@@ -23,7 +23,7 @@ function Header() {
                 <Link to="/">Home</Link>
                 <Link to="/service">Services</Link>
                 <Link to="/stylist">Stylists</Link>
-                <Link to="/product">Products</Link>
+                <Link to="/booking">Booking</Link>
                 <Link to="/contact">Contact</Link>
             </div>
 
