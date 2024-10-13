@@ -15,6 +15,8 @@ import Contact from "../page/contact";
 import Staff from "../page/staff";
 import Booking from "../page/admin/booking";
 import Stylists from "../page/admin/stylist";
+import Profile from "../page/profile";
+import BookingForm from "../page/booking";
 
 export const router = createBrowserRouter([
     {
@@ -83,4 +85,12 @@ export const router = createBrowserRouter([
         path: "staff",
         element: <Staff />,
     },
+    {
+        path: "profile",
+        element: <Profile />,
+    },
+    {
+        path: "booking",
+        element: <BookingForm />,
+    }
 ]);

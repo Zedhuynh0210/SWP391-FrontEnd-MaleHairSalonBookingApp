@@ -1,11 +1,9 @@
-import { Button, Form, Input, Modal, Popconfirm, Table, Typography } from "antd";
+import { Button, Form, Input, Modal, Popconfirm, Table, Tabs, Typography } from "antd";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { EditOutlined, PlusOutlined, StopOutlined } from '@ant-design/icons';
-import { Image, Upload } from 'antd';
-import uploadFile from "../../../utils/file";
+import { EditOutlined, StopOutlined } from '@ant-design/icons';
 
 function Booking() {
   const [datas, setDatas] = useState([]);
@@ -15,11 +13,7 @@ function Booking() {
   const [isUpdate, setIsUpdate] = useState(false); // Trạng thái để kiểm tra cập nhật hay tạo mới
 
 
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [fileList, setFileList] = useState([]);
-
-  const api = "http://14.225.192.118:8080/api/services/getall"; // Cập nhật URL API mới
+  const api = "http://14.225.192.118:8080/api/booking/getall"; // Cập nhật URL API mới
 
   const fetchData = async () => {
     const response = await axios.get(api);
@@ -37,24 +31,24 @@ function Booking() {
       key: "id",
     },
     {
+      title: "Booking Time", // Cập nhật tên cột
+      dataIndex: "bookingTime", // Cập nhật dataIndex
+      key: "bookingTime", // Cập nhật key
+    },
+    {
       title: "Service Name", // Cập nhật tên cột
       dataIndex: "serviceName", // Cập nhật dataIndex
       key: "serviceName", // Cập nhật key
     },
     {
-      title: "Service Description", // Cập nhật tên cột
-      dataIndex: "serviceDescription", // Cập nhật dataIndex
-      key: "serviceDescription", // Cập nhật key
+      title: "Stylist Name", // Cập nhật tên cột
+      dataIndex: "stylistName", // Cập nhật dataIndex
+      key: "stylistName", // Cập nhật key
     },
     {
-      title: "Service Price", // Cập nhật tên cột
-      dataIndex: "servicePrice", // Cập nhật dataIndex
-      key: "servicePrice", // Cập nhật key
-    },
-    {
-      title: "Service Type", // Cập nhật tên cột
-      dataIndex: "serviceType", // Cập nhật dataIndex
-      key: "serviceType", // Cập nhật key
+      title: "UserId", // Cập nhật tên cột
+      dataIndex: "userId", // Cập nhật dataIndex
+      key: "userId", // Cập nhật key
     },
     {
       title: "Status",
@@ -63,25 +57,17 @@ function Booking() {
       render: (deleteStatus) => (deleteStatus ? "Inactive" : "Active"),
     },
     {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      render: (image) => {
-        return <Image src={image} alt="" width={50} />;
-      },
-    },
-    {
       title: "Action",
       dataIndex: "id",
       key: "id",
-      render: (id, services) => (
+      render: (id, booking) => (
         <>
           <Button
             type="primary"
             onClick={() => {
               setIsUpdate(true);
               setOpenModal(true);
-              form.setFieldsValue(services);
+              form.setFieldsValue(booking);
             }}
           >
             <EditOutlined />
@@ -89,7 +75,7 @@ function Booking() {
 
           <Popconfirm
             title="Delete"
-            description="Do you want to block this service?"
+            description="Do you want to block this booking?"
             onConfirm={() => handleDelete(id)}
           >
             <Button type="primary" danger>
@@ -112,28 +98,23 @@ function Booking() {
   };
 
   const handleSubmit = async (values) => {
-    if (fileList.length > 0) {
-      const file = fileList[0];
-      const url = await uploadFile(file.originFileObj);
-      values.image = url; // Cập nhật đường dẫn ảnh
-    }
 
     try {
       setSubmitting(true);
       if (values.id) {
         // Cập nhật dịch vụ
-        await axios.put(`http://14.225.192.118:8080/api/services/udate/${values.id}`, values); // Cập nhật URL API
-        toast.success('Successfully updated service!');
+        await axios.put(`http://14.225.192.118:8080/api/booking/udate/${values.id}`, values); // Cập nhật URL API
+        toast.success('Successfully updated booking!');
       } else {
         // Tạo dịch vụ mới
-        await axios.post("http://14.225.192.118:8080/api/services/create", values);
+        await axios.post("http://14.225.192.118:8080/api/booking/create", values);
         toast.success('Successfully created a new service!');
       }
       setOpenModal(false);
       form.resetFields();
       fetchData(); // Lấy lại danh sách người dùng
     } catch (err) {
-      toast.error('Failed to save service.');
+      toast.error('Failed to save booking.');
     } finally {
       setSubmitting(false);
     }
@@ -141,54 +122,21 @@ function Booking() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://14.225.192.118:8080/api/services/delete/${id}`);
+      await axios.delete(`http://14.225.192.118:8080/api/booking/delete/${id}`);
       toast.success("Delete Successfully!");
       fetchData();
     } catch (ex) {
-      toast.error("Failed to delete service!");
+      toast.error("Failed to delete booking!");
     }
   };
-
-  const getBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-  };
-
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
-
-  const uploadButton = (
-    <button
-      style={{
-        border: 0,
-        background: 'white',
-        color: 'black',
-      }}
-      type="button"
-    >
-      <PlusOutlined />
-      <div style={{ marginTop: 8, color: 'black' }}>Upload</div>
-    </button>
-  );
-
   const handleSearch = async (id) => {
     try {
       if (!id) {
         // Khi không có ID, gọi API để lấy tất cả dịch vụ
-        const response = await axios.get('http://14.225.192.118:8080/api/services/getall'); // Lấy tất cả dịch vụ
+        const response = await axios.get('http://14.225.192.118:8080/api/booking/getall'); // Lấy tất cả dịch vụ
         setDatas(response.data); // Cập nhật danh sách dữ liệu với tất cả dịch vụ
       } else {
-        const response = await axios.get(`http://14.225.192.118:8080/api/services/get/${id}`); // Sử dụng API mới
+        const response = await axios.get(`http://14.225.192.118:8080/api/booking/get/${id}`); // Sử dụng API mới
         setDatas([response.data]); // Cập nhật danh sách dữ liệu với kết quả tìm kiếm
       }
     } catch (error) {
@@ -198,18 +146,31 @@ function Booking() {
 
   return (
     <div>
-      <Typography.Title level={4}>Services</Typography.Title>
-      <Button onClick={handleOpenModal}>Create new service</Button>
-      <Input.Search
-        placeholder="Search by ID"
-        onSearch={value => handleSearch(value)} // Thêm hàm tìm kiếm
-        style={{ width: 200, marginLeft: 10 }} // Thay đổi kích thước và khoảng cách
-      />
-      <Table columns={columns} dataSource={datas} pagination={{pageSize: 5}} />
+      <Typography.Title level={4}>Booking</Typography.Title>
+      <Tabs defaultActiveKey="1">
+        <Tabs.TabPane tab="Active" key="1">
+          <Button onClick={handleOpenModal}>Create new booking</Button>
+          <Input.Search
+            placeholder="Search by ID"
+            onSearch={value => handleSearch(value)}
+            style={{ width: 200, marginLeft: 10 }}
+          />
+          <Table columns={columns} dataSource={datas.filter(booking => !booking.delete)} pagination={{pageSize: 5}} /> {/* Hiển thị dịch vụ Active */}
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Inactive" key="2">
+          <Button onClick={handleOpenModal}>Create new booking</Button>
+          <Input.Search
+            placeholder="Search by ID"
+            onSearch={value => handleSearch(value)}
+            style={{ width: 200, marginLeft: 10 }}
+          />
+          <Table columns={columns} dataSource={datas.filter(booking => booking.delete)} pagination={{pageSize: 5}} /> {/* Hiển thị dịch vụ Inactive */}
+        </Tabs.TabPane>
+      </Tabs>
       <Modal
         confirmLoading={submitting}
         onOk={() => form.submit()}
-        title={isUpdate ? "Update Service" : "Create New Service"}
+        title={isUpdate ? "Update Booking" : "Create New Booking"}
         open={openModal}
         onCancel={handleCloseModal}
       >
@@ -217,47 +178,23 @@ function Booking() {
           <Form.Item name="id" hidden>
             <Input/>
           </Form.Item>
-          <Form.Item label="ServiceName" name="serviceName" rules={[{ required: true, message: "Please input serviceName!" }]}>
+          <Form.Item label="Booking Time" name="bookingTime" rules={[{ required: true, message: "Please input bookingTime!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Description" name="serviceDescription" rules={[{ required: true, message: "Please input description!" }]}>
+          <Form.Item label="Service Name" name="serviceName" rules={[{ required: true, message: "Please input serviceName!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Type" name="serviceType" rules={[{ required: true, message: "Please input type!" }]}>
+          <Form.Item label="Stylist Name" name="stylistName" rules={[{ required: true, message: "Please input stylistName!" }]}>
             <Input />
           </Form.Item>
 
-          <Form.Item label="Price" name="servicePrice" rules={[{ required: true, message: "Please input price!" }]}>
+          <Form.Item label="UserId" name="userId" rules={[{ required: true, message: "Please input userId!" }]}>
             <Input />
-          </Form.Item>
-
-
-          <Form.Item label="Image" name="image">
-            <Upload
-              listType="picture-card"
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleChange}
-            >
-              {fileList.length >= 8 ? null : uploadButton}
-            </Upload>
           </Form.Item>
         </Form>
       </Modal>
-
-      {previewImage && (
-        <Image
-          wrapperStyle={{ display: 'none' }}
-          preview={{
-            visible: previewOpen,
-            onVisibleChange: (visible) => setPreviewOpen(visible),
-            afterOpenChange: (visible) => !visible && setPreviewImage(''),
-          }}
-          src={previewImage}
-        />
-      )}
     </div>
   );
 }

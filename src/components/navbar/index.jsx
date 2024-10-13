@@ -21,14 +21,13 @@ function Navbar() {
             // Redirect to the home page
             navigate('/');
         } else {
-            message.info('Click on menu item.');
             console.log('click', e);
         }
     };
 
     const items = [
         {
-            label: 'Profile',
+            label: <Link to="/profile">Profile</Link>,
             key: 'profile',
             icon: <UserOutlined />,
         },
@@ -80,7 +79,7 @@ function Navbar() {
                 <Link to="/member">Home</Link>
                 <Link to="/service">Services</Link>
                 <Link to="/stylist">Stylists</Link>
-                <Link to="/product">Products</Link>
+                <Link to="/booking">Booking</Link>
                 <Link to="/contact">Contact</Link>
             </div>
 
