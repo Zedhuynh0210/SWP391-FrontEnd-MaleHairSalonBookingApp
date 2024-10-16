@@ -1,5 +1,4 @@
 import { Carousel } from 'antd';
-import './index.css';
 import img3 from '../../assets/images/header3.png';
 import Statistics from '../../components/statistic';
 import HairSalonPoints from '../../components/point';

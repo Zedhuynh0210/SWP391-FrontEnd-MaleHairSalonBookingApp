@@ -1,114 +1,94 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Card, Col, Row, Button, Spin, Image, Pagination } from "antd";
-import './index.css';
-import Header from "../../components/header";
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
 
-function Service() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-  const [pageSize] = useState(8); // Số sản phẩm mỗi trang (2 dòng x 5 sản phẩm = 10 sản phẩm)
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Trạng thái đăng nhập
+import { Card, Col, Row } from 'antd';
+import './index.css'; // Nhớ tạo file CSS này
+import { BasePage } from '../../components/BasePage';
+import { Link } from 'react-router-dom';
+import { RightOutlined } from '@ant-design/icons';
 
-  const api = "http://14.225.192.118:8080/api/Category/getall";
+const hairServices = [
+    {
+        title: 'Cắt tóc',
+        description: 'Giá từ 100.000đ',
+        image: 'https://media.istockphoto.com/id/640274128/vi/anh/th%E1%BB%A3-c%E1%BA%AFt-t%C3%B3c-s%E1%BB%AD-d%E1%BB%A5ng-k%C3%A9o-v%C3%A0-l%C6%B0%E1%BB%A3c.jpg?s=612x612&w=0&k=20&c=o82ARZnhqPdFAqU6WOWLnnP-Z7dGi22crXtevsOguAU=', // Thay thế bằng link hình ảnh thực tế
+    },
+    {
+        title: 'Uốn định hình',
+        description: 'Giá từ 379.000đ',
+        image: 'https://lamia.com.vn/storage/uon-toc-mohican-dep.jpg', // Thay thế bằng link hình ảnh thực tế
+    },
+    {
+        title: 'Thay đổi màu tóc',
+        description: 'Giá từ 199.000đ',
+        image: 'https://barber-shop.vn/wp-content/uploads/2019/08/nhuom-toc-nam-2.jpg', // Thay thế bằng link hình ảnh thực tế
+    },
+];
 
-  // Hàm fetch sản phẩm từ mock API
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(api);
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+const spaServices = [
+    {
+        title: 'Gội Massage Relax',
+        description: 'Giá từ 50.000đ',
+        image: 'https://watermark.lovepik.com/photo/20211202/large/lovepik-male-customer-washing-hair-picture_501431968.jpg', // Thay thế bằng link hình ảnh thực tế
+    },
+    {
+        title: 'Lấy ráy tai êm',
+        description: 'Giá từ 70.000đ',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa8mLD2nLL_wpK3z-wc8o6j3EcuulKh_Mnxw&s', // Thay thế bằng link hình ảnh thực tế
+    },
+    {
+      title: 'Cạo râu, Cạo mặt',
+      description: 'Giá từ 40.000đ',
+      image: 'https://png.pngtree.com/thumb_back/fw800/background/20230329/pngtree-barber-shaving-bearded-man-with-retro-knife-up-face-razor-photo-image_51116810.jpg', // Thay thế bằng link hình ảnh thực tế
+  },
+];
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+const ServicePage = () => {
+    return (
+      <BasePage>
+        <div className="service-container">
+            <h1 style={{ marginRight: '700px' }}> <img src='https://cdn-icons-png.flaticon.com/128/32/32069.png' style={{width: '30px'}}/> DỊCH VỤ TÓC</h1>
+            <Row gutter={16} justify="center">
+                {hairServices.map((service, index) => (
+                    <Col span={8} key={index}>
+                        <Card
+                        style={{backgroundColor: 'lightgray'}}
+                            hoverable
+                            className="service-card"
+                            cover={<img alt={service.title} src={service.image} />}
+                        >
+                        
+                            <div style={{marginBottom: '230px', position: 'relative'}}>
+                                <h3>{service.title}</h3>
+                                <p>{service.description}</p>
+                                <Link to={`/service/${service.title}`} style={{ position: 'absolute', top: '80px' }}>Tìm hiểu thêm <RightOutlined /></Link>
+                            </div>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
 
-  // Giả sử bạn có một hàm để kiểm tra trạng thái đăng nhập
-  useEffect(() => {
-    // Kiểm tra trạng thái đăng nhập dựa trên token
-    const checkLoginStatus = () => {
-      const token = localStorage.getItem("token");
-      const loggedIn = token !== null; // Kiểm tra nếu token tồn tại
-      setIsLoggedIn(loggedIn);
-    };
+            <h1 style={{ marginTop: '60px', marginRight: '700px' }}> <img src='https://cdn-icons-png.flaticon.com/128/7305/7305214.png' style={{width: '30px'}}/> SPA & RELAX</h1> 
+            <Row gutter={16} justify="center">
+                {spaServices.map((service, index) => (
+                    <Col span={8} key={index}>
+                        <Card
+                        style={{backgroundColor: 'lightgray'}}
+                            hoverable
+                            className="service-card"
+                            cover={<img alt={service.title} src={service.image} />}
+                        >
+                            <div style={{marginBottom: '230px', position: 'relative'}}>
+                                <h3>{service.title}</h3>
+                                <p>{service.description}</p>
+                                <Link to={`/service/${service.title}`} style={{ position: 'absolute', top: '80px' }}>Tìm hiểu thêm <RightOutlined /></Link>
+                            </div>
+                            
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </div>
+        </BasePage>
+    );
+};
 
-    checkLoginStatus();
-  }, []);
-
-  // Xác định các sản phẩm hiển thị trên trang hiện tại
-  const indexOfLastProduct = currentPage * pageSize;
-  const indexOfFirstProduct = indexOfLastProduct - pageSize;
-  const currentProducts = products
-    .filter(service => !service.delete) // Lọc sản phẩm có delete là false
-    .slice(indexOfFirstProduct, indexOfLastProduct);
-
-  // Hàm xử lý khi thay đổi trang
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  return (
-    <div style={{ padding: "10px" }}>
-      {isLoggedIn ? <Navbar /> : <Header />}
-      <h1>Services</h1>
-      {loading ? (
-        <Spin size="large" />
-      ) : (
-        <>
-          <Row gutter={[12, 12]}>
-            <Image.PreviewGroup>
-              {currentProducts.map((service) => (
-                <Col key={service.id} xs={24} sm={12} md={8} lg={6} xl={6}>
-                  <Card
-                    style={{backgroundColor: 'lightgray'}}
-                    hoverable
-                    cover={
-                      <Image
-                        alt=""
-                        src="https://media.istockphoto.com/id/640274128/vi/anh/th%E1%BB%A3-c%E1%BA%AFt-t%C3%B3c-s%E1%BB%AD-d%E1%BB%A5ng-k%C3%A9o-v%C3%A0-l%C6%B0%E1%BB%A3c.jpg?s=612x612&w=0&k=20&c=o82ARZnhqPdFAqU6WOWLnnP-Z7dGi22crXtevsOguAU="
-                        style={{ height: 200, objectFit: "cover" }}
-                      />
-                    }
-                    className="product-card"
-                  >
-                    <div className="product-content">
-                      <h3>{service.categoryName}</h3>
-                      <p>{service.categoryDescription}</p>
-                      <Button type="primary">
-                        View Details
-                      </Button>
-                    </div>
-                  </Card>
-                </Col>
-              ))}
-            </Image.PreviewGroup>
-          </Row>
-
-          {/* Pagination component */}
-          <Pagination
-            current={currentPage}
-            pageSize = {5}
-            total={products.length}
-            onChange={handlePageChange}
-            style={{ textAlign: "center", marginTop: "20px" }}
-            showSizeChanger={false} // Ẩn tùy chọn thay đổi kích thước
-          />
-        </>
-      )}
-      <div className="footer">
-        <Footer/>
-      </div>
-    </div>
-  );
-}
-
-export default Service;
+export default ServicePage;

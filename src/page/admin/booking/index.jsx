@@ -103,7 +103,7 @@ function Booking() {
       setSubmitting(true);
       if (values.id) {
         // Cập nhật dịch vụ
-        await axios.put(`http://14.225.192.118:8080/api/booking/udate/${values.id}`, values); // Cập nhật URL API
+        await axios.put(`http://14.225.192.118:8080/booking/udate/${values.id}`, values); // Cập nhật URL API
         toast.success('Successfully updated booking!');
       } else {
         // Tạo dịch vụ mới

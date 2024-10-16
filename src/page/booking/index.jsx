@@ -1,8 +1,6 @@
 import { Form, Input, Button, DatePicker } from 'antd';
 import './index.css'; // Import file CSS
 import { BasePage } from '../../components/BasePage';
-import Navbar from '../../components/navbar';
-import Header from '../../components/header';
 import axios from 'axios'; // Thêm import axios
 import { toast } from 'react-toastify';
 
@@ -18,11 +16,9 @@ const BookingForm = () => {
             toast.error('Booking Failed!'); // Thêm thông báo thất bại
         }
     };
-    const isLoggedIn = !!localStorage.getItem("token");    
 
     return (
         <BasePage>
-        {isLoggedIn ? <Navbar /> : <Header />}
         <div className="form-container">
             <Form
                 name="booking"
