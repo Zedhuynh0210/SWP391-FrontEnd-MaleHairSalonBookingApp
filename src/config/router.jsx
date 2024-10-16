@@ -7,7 +7,6 @@ import Dashboard from "../page/admin/dashboard";
 import Services from "../page/admin/services";
 import Users from "../page/admin/users";
 import Admin from "../page/admin";
-import Product from "../page/product";
 import Service from "../page/service";
 import Stylist from "../page/stylist/index";
 import StylistProfile from "../page/stylist-detail";
@@ -17,6 +16,7 @@ import Booking from "../page/admin/booking";
 import Stylists from "../page/admin/stylist";
 import Profile from "../page/profile";
 import BookingForm from "../page/booking";
+import Detail from "../page/service/service-detail";
 
 export const router = createBrowserRouter([
     {
@@ -62,10 +62,6 @@ export const router = createBrowserRouter([
         ],
     },
     {
-        path: "product",
-        element: <Product />,
-    },
-    {
         path: "service",
         element: <Service />,
     },
@@ -92,5 +88,9 @@ export const router = createBrowserRouter([
     {
         path: "booking",
         element: <BookingForm />,
+    },
+    {
+        path: "service/:title",
+        element: <Detail />,
     }
 ]);
